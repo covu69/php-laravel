@@ -12,7 +12,8 @@ class CheckEnrollment
 {
     public function handle(Request $request, Closure $next)
     {
-        $courseId = $request->route('id'); 
+  
+        $courseId = $request->route('id');
         $course = Course::findOrFail($courseId);
 
         // Nếu khóa học miễn phí, cho phép truy cập ngay
@@ -22,12 +23,12 @@ class CheckEnrollment
 
         // Kiểm tra xem user đã mua khóa học chưa
         $enrolled = Enrollment::where('user_id', Auth::id())
-                              ->where('course_id', $courseId)
-                              ->exists();
+            ->where('course_id', $courseId)
+            ->exists();
 
         if (!$enrolled) {
             return redirect()->route('user.course.show', $courseId)
-                             ->with('error', 'Bạn cần mua khóa học để xem nội dung.');
+                ->with('error', 'Bạn cần mua khóa học để xem nội dung.');
         }
 
         return $next($request);

@@ -15,7 +15,7 @@
 <body>
     <div class="container mt-4">
         <h2>{{ $course->title }}</h2>
-        <img src="{{ asset('storage/' . $course->image_url) }}" class="img-fluid mb-3" alt="Hình ảnh khóa học">
+        <img src="{{ asset('storage/' . $course->image_url) }}" class="img-fluid w-50 mb-3" alt="Hình ảnh khóa học">
         <p>{{ $course->description }}</p>
 
         @if($course->is_free == 0 || session('success'))
@@ -30,9 +30,7 @@
                     </li>
                 @endforeach
             </ul>
-        @else
-            <a href="{{ route('user.course.checkout', $course->id) }}" class="btn btn-danger">Mua khóa học</a>
-        @endif
+            @endif
     </div>
 </body>
 

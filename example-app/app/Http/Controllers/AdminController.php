@@ -33,6 +33,7 @@ class AdminController extends Controller
 
 
             if (Auth::guard('admin')->attempt($credentials)) {
+                session(['admin_session' => Auth::guard('admin')->user()->id]);
                 return redirect()->route('admin.dashboard')->with('success', "Đăng nhập thành công!");
             } else {
                 return redirect()->back()->with('error', "Email hoặc mật khẩu không đúng !");

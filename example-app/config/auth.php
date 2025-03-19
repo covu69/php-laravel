@@ -39,12 +39,16 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'session_key' => config('session.session_keys.web'),
         ],
+
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+            'session_key' => config('session.session_keys.admin'),
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

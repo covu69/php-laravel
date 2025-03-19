@@ -2,12 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
+use App\Http\Middleware\CheckAuthenticated;
 use App\Http\Middleware\CheckEnrollment;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ClientController::class, 'index'])->name('user.course.index');
 
 
 Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
@@ -33,14 +32,17 @@ Route::prefix('admin')->group(function () {
 });
 
 
-Route::prefix('courses')->group(function () {
-    Route::get('/', [ClientController::class, 'index'])->name('user.course.index');
+Route::prefix('courses')->middleware(CheckAuthenticated::class)->group(function () {
+
     Route::get('/{id}', [ClientController::class, 'show'])->name('user.course.show');
     Route::post('/{id}/checkout', [ClientController::class, 'checkout'])->name('user.course.checkout');
 
     // Chỉ những ai đã đăng ký mới có thể xem bài giảng
     Route::get('/{id}/lessons', [ClientController::class, 'lessons'])
-         ->middleware(CheckEnrollment::class)
-         ->name('user.course.lessons');
+        ->middleware(CheckEnrollment::class)
+        ->name('user.course.lessons');
 });
 
+Route::get('/login', [ClientController::class, 'loginClient'])->name('client.login');
+Route::post('/check/login', [ClientController::class, 'checkLogin'])->name('client.check.login');
+Route::post('/client/logout', [ClientController::class, 'clientLogout'])->name('client.logout');

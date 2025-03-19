@@ -36,6 +36,17 @@
                             </a>
                         </li>
                     </ul>
+                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Đăng xuất
+                        </a>
+                    </li>
+
                 </div>
             </nav>
 
