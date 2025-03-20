@@ -7,7 +7,12 @@ use App\Http\Middleware\CheckEnrollment;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ClientController::class, 'index'])->name('user.course.index');
-
+Route::get('/test', function () {
+    return view('index');
+});
+Route::get('/test/course', function () {
+    return view('courses');
+})->name('test.courses');
 
 Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
 Route::post('/admin/check/login', [AdminController::class, 'checkLogin'])->name('check.admin.login');
